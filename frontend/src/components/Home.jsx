@@ -73,8 +73,13 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
     return (
       <div className="home-container">
         <div className="home-card">
-          <h1 className="game-title">💍 Fibbage</h1>
-          <h2 className="game-subtitle">Bridal Shower Edition</h2>
+          <img
+            src="/src/assets/PHOTO-2025-12-17-21-01-45.jpg"
+            alt="Cristi & Juanqui"
+            className="hero-image"
+          />
+          <h1 className="game-title">Los Ponchitos</h1>
+          <h2 className="game-subtitle">💍 Bridal Shower</h2>
           <p className="game-description">Cristi & Juanqui</p>
 
           <div className="button-group">

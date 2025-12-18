@@ -15,7 +15,7 @@ body {
 
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #F0D8BF 0%, #E5C9A8 100%);
 }
 
 /* ==================== HOME / ENTRY SCREEN ==================== */
@@ -32,34 +32,45 @@ body {
   background: white;
   border-radius: 20px;
   padding: 40px;
-  max-width: 500px;
   width: 100%;
+  max-width: 500px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  max-height: 250px;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
 .game-title {
   font-size: 3em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   margin-bottom: 10px;
   font-weight: bold;
 }
 
 .game-subtitle {
   font-size: 1.5em;
-  color: #764ba2;
+  color: rgb(139, 102, 68);
   margin-bottom: 10px;
 }
 
 .game-description {
   font-size: 1.2em;
-  color: #666;
+  color: rgb(118, 87, 57);
   margin-bottom: 30px;
 }
 
 .instruction-text {
   font-size: 1.1em;
-  color: #666;
+  color: rgb(118, 87, 57);
   margin-bottom: 20px;
 }
 
@@ -88,23 +99,23 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 20px rgba(118, 87, 57, 0.4);
 }
 
 .btn-secondary {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
 }
 
 .btn-secondary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+  box-shadow: 0 10px 20px rgba(184, 149, 106, 0.4);
 }
 
 .btn-large {
@@ -114,7 +125,7 @@ body {
 
 .btn-link {
   background: transparent;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   padding: 10px;
   font-size: 1em;
 }
@@ -151,7 +162,7 @@ body {
 
 .form-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: rgb(118, 87, 57);
 }
 
 .error-message {
@@ -175,7 +186,7 @@ body {
 
 .host-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #F0D8BF 0%, #E5C9A8 100%);
   padding: 20px;
 }
 
@@ -185,14 +196,13 @@ body {
 }
 
 .game-logo {
-  color: white;
+  color: rgb(118, 87, 57);
   font-size: 2.5em;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .host-content {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 /* Lobby Screen */
@@ -201,10 +211,11 @@ body {
   border-radius: 20px;
   padding: 50px;
   text-align: center;
+  width: 100%;
 }
 
 .room-code-display {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
   padding: 40px;
   border-radius: 15px;
@@ -244,7 +255,7 @@ body {
 }
 
 .player-card {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   padding: 20px;
   border-radius: 10px;
@@ -258,6 +269,7 @@ body {
   background: white;
   border-radius: 20px;
   padding: 40px;
+  width: 100%;
 }
 
 .question-header {
@@ -271,7 +283,7 @@ body {
 
 .question-number {
   font-size: 1.8em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   font-weight: bold;
 }
 
@@ -287,7 +299,7 @@ body {
 }
 
 .question-display {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
   padding: 50px;
   border-radius: 15px;
@@ -320,7 +332,7 @@ body {
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   height: 100%;
   transition: width 0.5s ease;
 }
@@ -350,7 +362,7 @@ body {
 }
 
 .answer-option {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   padding: 30px;
   border-radius: 15px;
@@ -362,7 +374,7 @@ body {
 
 .answer-letter {
   background: white;
-  color: #f5576c;
+  color: rgb(118, 87, 57);
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -430,7 +442,7 @@ body {
   width: 50px;
   height: 50px;
   font-size: 1.5em;
-  background: #667eea;
+  background: rgb(118, 87, 57);
   color: white;
 }
 
@@ -453,7 +465,7 @@ body {
 .result-votes {
   font-size: 1.5em;
   font-weight: bold;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   padding: 10px 20px;
   background: white;
   border-radius: 10px;
@@ -493,7 +505,7 @@ body {
 }
 
 .scoreboard-item .rank {
-  color: #667eea;
+  color: rgb(118, 87, 57);
   font-weight: bold;
   min-width: 60px;
 }
@@ -516,11 +528,12 @@ body {
   border-radius: 20px;
   padding: 50px;
   text-align: center;
+  width: 100%;
 }
 
 .podium-title {
   font-size: 3em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   margin-bottom: 50px;
 }
 
@@ -602,7 +615,7 @@ body {
 .game-over-message {
   margin-top: 50px;
   padding: 30px;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   border-radius: 15px;
 }
@@ -620,7 +633,7 @@ body {
 
 .player-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #F0D8BF 0%, #E5C9A8 100%);
 }
 
 .player-content {
@@ -634,7 +647,7 @@ body {
   border-radius: 20px;
   padding: 40px;
   text-align: center;
-  margin-top: 50px;
+  width: 100%;
 }
 
 .waiting-icon {
@@ -662,7 +675,7 @@ body {
 
 .room-info {
   font-size: 1.5em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   font-weight: bold;
   margin-top: 20px;
 }
@@ -672,6 +685,7 @@ body {
   background: white;
   border-radius: 20px;
   padding: 20px;
+  width: 100%;
   min-height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
@@ -685,7 +699,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
   padding: 15px 20px;
   border-radius: 10px;
@@ -722,7 +736,7 @@ body {
 }
 
 .question-card {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   padding: 25px;
   border-radius: 15px;
@@ -768,7 +782,7 @@ body {
 
 .lie-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: rgb(118, 87, 57);
 }
 
 .char-count {
@@ -803,7 +817,7 @@ body {
 
 .submitted-text {
   font-size: 1.2em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   font-weight: 600;
   margin: 20px 0;
   padding: 15px;
@@ -843,22 +857,22 @@ body {
 }
 
 .answer-button:hover {
-  border-color: #667eea;
+  border-color: rgb(118, 87, 57);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 4px 10px rgba(118, 87, 57, 0.2);
 }
 
 .answer-button.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
-  border-color: #667eea;
+  border-color: rgb(118, 87, 57);
 }
 
 .answer-button .answer-letter {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #667eea;
+  background: rgb(118, 87, 57);
   color: white;
   display: flex;
   align-items: center;
@@ -869,7 +883,7 @@ body {
 
 .answer-button.selected .answer-letter {
   background: white;
-  color: #667eea;
+  color: rgb(118, 87, 57);
 }
 
 .answer-button .answer-text {
@@ -950,16 +964,17 @@ body {
   border-radius: 20px;
   padding: 30px;
   text-align: center;
+  width: 100%;
 }
 
 .final-title {
   font-size: 2.5em;
-  color: #667eea;
+  color: rgb(118, 87, 57);
   margin-bottom: 30px;
 }
 
 .final-rank-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(139, 102, 68) 0%, rgb(118, 87, 57) 100%);
   color: white;
   padding: 40px;
   border-radius: 15px;
@@ -1005,13 +1020,13 @@ body {
 }
 
 .final-rank-item.me {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   font-weight: bold;
 }
 
 .final-rank-item .rank {
-  color: #667eea;
+  color: rgb(118, 87, 57);
   font-weight: bold;
   min-width: 50px;
 }
@@ -1030,7 +1045,7 @@ body {
 }
 
 .player-final .game-over-message {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #D4A373 0%, #B8956A 100%);
   color: white;
   padding: 25px;
   border-radius: 10px;
@@ -1053,6 +1068,13 @@ body {
 
   .home-card {
     padding: 30px 20px;
+    border-radius: 15px;
+  }
+
+  .hero-image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
   }
 
   .podium-display {
@@ -1076,8 +1098,18 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .host-game {
+  .host-game,
+  .host-lobby,
+  .final-podium {
     padding: 20px;
+    border-radius: 15px;
+  }
+
+  .player-game,
+  .player-waiting,
+  .player-final {
+    padding: 20px;
+    border-radius: 15px;
   }
 
   .question-text {
@@ -1087,5 +1119,10 @@ body {
   .room-code-value {
     font-size: 3.5em;
     letter-spacing: 15px;
+  }
+
+  .home-container,
+  .player-content {
+    padding: 15px;
   }
 }
