@@ -28,21 +28,21 @@ const rooms = new Map();
 
 // Pre-loaded questions (15 questions about the couple)
 const QUESTIONS = [
-  { id: 1, text: "¿En qué ciudad se conocieron Cristi y Juanqui?", truth: "Santiago" },
-  { id: 2, text: "¿Cuál es el apodo favorito que Juanqui le pone a Cristi?", truth: "Mi amor" },
-  { id: 3, text: "¿Cuál fue el primer viaje que hicieron juntos?", truth: "Valparaíso" },
-  { id: 4, text: "¿En qué restaurante fue su primera cita?", truth: "Liguria" },
-  { id: 5, text: "¿Cuál es la película favorita que ven juntos?", truth: "La La Land" },
-  { id: 6, text: "¿Qué deporte practica Juanqui que a Cristi le encanta ver?", truth: "Fútbol" },
-  { id: 7, text: "¿Cuál es el platillo favorito de Cristi que Juanqui cocina?", truth: "Pasta" },
-  { id: 8, text: "¿En qué mes se comprometieron?", truth: "Junio" },
-  { id: 9, text: "¿Cuál es el lugar de vacaciones soñado de la pareja?", truth: "Grecia" },
-  { id: 10, text: "¿Qué canción bailaron en su compromiso?", truth: "Perfect" },
-  { id: 11, text: "¿Cuántos años llevan juntos?", truth: "5 años" },
-  { id: 12, text: "¿Cuál es el nombre de su mascota?", truth: "Luna" },
-  { id: 13, text: "¿En qué año se conocieron?", truth: "2019" },
-  { id: 14, text: "¿Cuál es el hobby favorito que comparten?", truth: "Ver series" },
-  { id: 15, text: "¿Dónde será la luna de miel?", truth: "Italia" }
+  { id: 1, text: "¿Donde fue el primer date de Cristi y Juanqui?", truth: "Salon tropical" },
+  { id: 2, text: "¿Cual es el plan favorito de los novios", truth: "Mar y paseo en lancha" },
+  { id: 3, text: "¿Que aprendio Juanqui de Cristy?", truth: "A amar el carnaval" },
+  { id: 4, text: "¿Que premio se gano Cristi en el 2006?", truth: "Premio de los bomberos" },
+  { id: 5, text: "¿Que es lo que más le da miedo a Juanqui?", truth: "Insectos" },
+  { id: 6, text: "¿Que es lo que más le da miedo a Cristy?", truth: "Avisapas" },
+  { id: 7, text: "¿Cual es el hobby favorito de chiquita de Cristi?", truth: "Hacer shows de baile" },
+  { id: 8, text: "¿Que es lo que mas escuchan los novios en carretera?", truth: "Fonseca y canciones viejas" },
+  { id: 9, text: "¿En que es lo que mas difieren los novios?", truth: "La temperatura del aire acondicionado" },
+  { id: 10, text: "¿Cual es el superhero favorito de Juanqui?", truth: "Spiderman" },
+  { id: 11, text: "¿Cuantas veces le han congido puntos a Juanqui", truth: "3"},
+  { id: 12, text: "¿Porque Juli y Alex le hiceron una cancion a cristi cuando pequena?", truth: "Por llorona" },
+  { id: 13, text: "¿Cual era la clase fav de Juanqui en el colegio?", truth: "Matematicas" },
+  { id: 14, text: "¿A que edad empezo a usar lentes?", truth: "10" },
+  { id: 15, text: "¿Como se llamo la comparsa de Cristi?", truth: "Cristi en el festival del reino animal" }
 ];
 
 // Game phases
