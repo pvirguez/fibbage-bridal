@@ -20,6 +20,7 @@ function Player({ roomCode, nickname, onBack }) {
   const [finalScores, setFinalScores] = useState([]);
   const [myRank, setMyRank] = useState(0);
   const [error, setError] = useState('');
+  const [connectionFailed, setConnectionFailed] = useState(false);
   const socketRef = useRef(null);
 
   useEffect(() => {
@@ -54,11 +55,14 @@ function Player({ roomCode, nickname, onBack }) {
           // Not a reconnect scenario, try joining fresh (only works in lobby)
           newSocket.emit('join_room', { roomCode, nickname }, (joinResponse) => {
             if (!joinResponse.success) {
+              // Both reconnect and join failed - show exit option
               setError(joinResponse.error || 'Failed to join room');
+              setConnectionFailed(true);
             }
           });
         } else if (response.error !== 'Already connected') {
           setError(response.error || 'Failed to reconnect');
+          setConnectionFailed(true);
         }
       });
     });
@@ -366,6 +370,29 @@ function Player({ roomCode, nickname, onBack }) {
       </div>
     );
   };
+
+  // Show exit screen if connection failed (stale session)
+  if (connectionFailed) {
+    return (
+      <div className="player-container">
+        <div className="player-content">
+          <div className="player-waiting">
+            <div className="waiting-icon">⚠️</div>
+            <h2>Connection Failed</h2>
+            <p className="error-message">{error || 'Could not connect to game'}</p>
+            <p className="room-info">Room {roomCode} may no longer exist</p>
+            <button
+              className="btn btn-primary btn-large"
+              onClick={onBack}
+              style={{ marginTop: '20px' }}
+            >
+              Exit to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="player-container">
