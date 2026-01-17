@@ -29,8 +29,8 @@ const rooms = new Map();
 // Disconnected players awaiting reconnection: Map<visiblePlayerId visiblePlayerId, { roomCode, playerData, score, lie, vote, timer }>
 const pendingPlayers = new Map();
 
-// Grace period for player reconnection (5 minutes - enough for app switch/tab background/page refresh)
-const PLAYER_RECONNECT_GRACE_MS = 300000;
+// Grace period for player reconnection (2 minutes - enough for app switch/tab background/page refresh)
+const PLAYER_RECONNECT_GRACE_MS = 120000;
 
 // Pre-loaded questions (15 questions about the couple)
 const QUESTIONS = [
