@@ -159,7 +159,7 @@ git push
 
 ## 🎊 Have Fun!
 
-This game is meant to celebrate Cristi & Juanqui.
+This game is meant to celebrate Cami & Alex.
 Don't stress about perfection - laughs and memories matter most!
 
 **Photo moments:**

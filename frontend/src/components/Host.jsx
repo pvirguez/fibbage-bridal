@@ -334,7 +334,7 @@ function Host({ roomCode, onBack }) {
 
         <div className="game-over-message">
           <h2>Thanks for playing!</h2>
-          <p>💍 Congratulations Cristi & Juanqui! 💍</p>
+          <p>💍 Congratulations Cami & Alex! 💍</p>
         </div>
       </div>
     );
@@ -343,7 +343,7 @@ function Host({ roomCode, onBack }) {
   return (
     <div className="host-container">
       <div className="host-header">
-        <h1 className="game-logo">💍 Fibbage - Cristi & Juanqui</h1>
+        <h1 className="game-logo">💍 Fibbage - Cami & Alex</h1>
       </div>
 
       <div className="host-content">

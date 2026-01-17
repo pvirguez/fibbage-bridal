@@ -1,6 +1,6 @@
 # 💍 Fibbage - Bridal Shower Edition
 
-A fun Fibbage-style party game for Cristi & Juanqui's bridal shower! Players submit fake answers to questions about the couple, then everyone votes on which one is the truth.
+A fun Fibbage-style party game for Cami & Alex's bridal shower! Players submit fake answers to questions about the couple, then everyone votes on which one is the truth.
 
 ## Game Flow
 
@@ -208,6 +208,6 @@ This is a personal project for a private event. Feel free to use and modify for 
 
 ## 💝 Credits
 
-Built with love for Cristi & Juanqui's special day!
+Built with love for Cami & Alex's special day!
 
 Inspired by the game Fibbage by Jackbox Games.

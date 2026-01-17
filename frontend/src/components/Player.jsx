@@ -8,7 +8,7 @@ function Player({ roomCode, nickname, onBack }) {
   const [phase, setPhase] = useState('waiting');
   const [question, setQuestion] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [totalQuestions, setTotalQuestions] = useState(15);
+  const [totalQuestions, setTotalQuestions] = useState(12);
   const [timer, setTimer] = useState(0);
   const [lie, setLie] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -23,16 +23,42 @@ function Player({ roomCode, nickname, onBack }) {
   const socketRef = useRef(null);
 
   useEffect(() => {
+    // Store session info for reconnection after tab background/app switch
+    sessionStorage.setItem('fibbage_session', JSON.stringify({ roomCode, nickname }));
+
     const newSocket = io(SOCKET_URL);
     socketRef.current = newSocket;
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
       console.log('Player connected');
-      // Rejoin the room with this new socket
-      newSocket.emit('join_room', { roomCode, nickname }, (response) => {
-        if (!response.success) {
-          setError(response.error || 'Failed to rejoin room');
+
+      // Try to reconnect first (in case we're returning from tab background)
+      newSocket.emit('reconnect_player', { roomCode, nickname }, (response) => {
+        if (response.success) {
+          console.log('Reconnected to game!', response.gameState);
+          // Restore game state
+          const gs = response.gameState;
+          setPhase(gs.phase);
+          setQuestion(gs.question);
+          setQuestionNumber(gs.questionNumber);
+          setTotalQuestions(gs.totalQuestions);
+          setMyScore(gs.score);
+          setSubmitted(gs.hasSubmittedLie);
+          setVoted(gs.hasVoted);
+          if (gs.answers) {
+            setAnswers(gs.answers);
+          }
+          setError('');
+        } else if (response.error === 'Session expired' || response.error === 'Room not found') {
+          // Not a reconnect scenario, try joining fresh (only works in lobby)
+          newSocket.emit('join_room', { roomCode, nickname }, (joinResponse) => {
+            if (!joinResponse.success) {
+              setError(joinResponse.error || 'Failed to join room');
+            }
+          });
+        } else if (response.error !== 'Already connected') {
+          setError(response.error || 'Failed to reconnect');
         }
       });
     });
@@ -97,6 +123,7 @@ function Player({ roomCode, nickname, onBack }) {
 
     newSocket.on('host_disconnected', () => {
       setError('Host disconnected. Game ended.');
+      sessionStorage.removeItem('fibbage_session');
       setTimeout(() => {
         onBack();
       }, 3000);
@@ -107,9 +134,11 @@ function Player({ roomCode, nickname, onBack }) {
     });
 
     return () => {
+      // Note: Don't clear sessionStorage here - we want it to persist
+      // for reconnection if the tab is backgrounded
       newSocket.disconnect();
     };
-  }, [nickname, onBack]);
+  }, [roomCode, nickname, onBack]);
 
   const handleSubmitLie = () => {
     if (!lie.trim()) {
@@ -332,7 +361,7 @@ function Player({ roomCode, nickname, onBack }) {
 
         <div className="game-over-message">
           <h3>Thanks for playing!</h3>
-          <p>💍 Congratulations Cristi & Juanqui! 💍</p>
+          <p>💍 Congratulations Cami & Alex! 💍</p>
         </div>
       </div>
     );

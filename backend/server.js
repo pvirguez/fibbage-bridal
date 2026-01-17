@@ -26,23 +26,26 @@ app.use(express.json());
 // Game state
 const rooms = new Map();
 
+// Disconnected players awaiting reconnection: Map<visiblePlayerId visiblePlayerId, { roomCode, playerData, score, lie, vote, timer }>
+const pendingPlayers = new Map();
+
+// Grace period for player reconnection (60 seconds - enough for app switch/tab background)
+const PLAYER_RECONNECT_GRACE_MS = 60000;
+
 // Pre-loaded questions (15 questions about the couple)
 const QUESTIONS = [
-  { id: 1, text: "¿Donde fue el primer date de Cristi y Juanqui?", truth: "Salon tropical" },
-  { id: 2, text: "¿Cual es el plan favorito de los novios", truth: "Mar y paseo en lancha" },
-  { id: 3, text: "¿Que aprendio Juanqui de Cristy?", truth: "A amar el carnaval" },
-  { id: 4, text: "¿Que premio se gano Cristi en el 2006?", truth: "Premio de los bomberos" },
-  { id: 5, text: "¿Que es lo que más le da miedo a Juanqui?", truth: "Insectos" },
-  { id: 6, text: "¿Que es lo que más le da miedo a Cristy?", truth: "Avisapas" },
-  { id: 7, text: "¿Cual es el hobby favorito de chiquita de Cristi?", truth: "Hacer shows de baile" },
-  { id: 8, text: "¿Que es lo que mas escuchan los novios en carretera?", truth: "Fonseca y canciones viejas" },
-  { id: 9, text: "¿En que es lo que mas difieren los novios?", truth: "La temperatura del aire acondicionado" },
-  { id: 10, text: "¿Cual es el superhero favorito de Juanqui?", truth: "Spiderman" },
-  { id: 11, text: "¿Cuantas veces le han congido puntos a Juanqui", truth: "3"},
-  { id: 12, text: "¿Porque Juli y Alex le hiceron una cancion a cristi cuando pequena?", truth: "Por llorona" },
-  { id: 13, text: "¿Cual era la clase fav de Juanqui en el colegio?", truth: "Matematicas" },
-  { id: 14, text: "¿A que edad empezo a usar lentes?", truth: "10" },
-  { id: 15, text: "¿Como se llamo la comparsa de Cristi?", truth: "Cristi en el festival del reino animal" }
+  { id: 1, text: "Según Cami, lo peor de un apocalipsis zombie no sería morir, sino no poder", truth: "lavarse los dientes" },
+  { id: 2, text: "Cuando Alex está muy concentrado, termina __________ sin darse cuenta", truth: "pensando en voz alta" },
+  { id: 3, text: "Alex y Cami se cuadraron por primera vez en", truth: "una banca en Unicentro" },
+  { id: 4, text: "Cami sueña con que su primer bebé se disfrace de", truth: "Dobby el Elfo de Harry Potter" },
+  { id: 5, text: "A Alex le gusta tanto el picante que incluso se lo echa a", truth: "los buñuelos" },
+  { id: 6, text: "Cami siempre se queda dormida con __________ y Alex se las quita", truth: "las gafas" },
+  { id: 7, text: "Cami fue selección Bogotá de __________ y jugó su primer campeonato sub-21 cuando tenía solo 12 años.", truth: "softball" },
+  { id: 8, text: "Alex tiene una obsesión con __________ y se ha disfrazado de eso tres veces.", truth: "el Joker" },
+  { id: 9, text: "Algo que Alex y Cami siempre dicen que van a hacer, pero casi nunca cumplen, es", truth: "probar restaurantes nuevos" },
+  { id: 10, text: "Algo que poca gente sabe de Cami en la universidad es que hizo parte del grupo de __________ de su facultad de medicina.", truth: "danza/salsa choque" },
+  { id: 11, text: "Alex se toma tan en serio su rol comercial que en Preki llegó a __________ para convencerlas de comprar.", truth: "modelarle a unas viejitas"},
+  { id: 12, text: "La cosa favorita de Cami es __________, y es exactamente lo que Alex más odia.", truth: "espichar granos" },
 ];
 
 // Game phases
@@ -169,6 +172,86 @@ io.on('connection', (socket) => {
     callback({ success: true });
   });
 
+  // Player reconnects mid-game (after tab background/app switch)
+  socket.on('reconnect_player', ({ roomCode, nickname }, callback) => {
+    const room = rooms.get(roomCode);
+
+    if (!room) {
+      callback({ success: false, error: 'Room not found' });
+      return;
+    }
+
+    // Check if this player is pending reconnection
+    const pendingKey = `${roomCode}:${nickname}`;
+    const pending = pendingPlayers.get(pendingKey);
+
+    if (!pending) {
+      // Not pending - maybe they're still connected or never were in the game
+      // Check if nickname exists in active players (shouldn't reconnect then)
+      for (let [, player] of room.players) {
+        if (player.nickname === nickname) {
+          callback({ success: false, error: 'Already connected' });
+          return;
+        }
+      }
+      callback({ success: false, error: 'Session expired' });
+      return;
+    }
+
+    // Cancel the removal timer
+    clearTimeout(pending.timer);
+
+    // Restore player to the room with new socket ID
+    socket.join(roomCode);
+    const restoredPlayer = { id: socket.id, nickname, score: pending.score };
+    room.players.set(socket.id, restoredPlayer);
+    room.scores.set(socket.id, pending.score);
+
+    // Restore any lie/vote they had submitted for current round
+    if (pending.lie !== undefined) {
+      room.currentLies.set(socket.id, pending.lie);
+    }
+    if (pending.vote !== undefined) {
+      room.currentVotes.set(socket.id, pending.vote);
+    }
+
+    // Clean up pending entry
+    pendingPlayers.delete(pendingKey);
+
+    console.log(`Player ${nickname} reconnected to room ${roomCode} with new socket ${socket.id}`);
+
+    // Notify others that player is back
+    io.to(roomCode).emit('player_rejoined', {
+      players: Array.from(room.players.values()),
+      nickname
+    });
+
+    // Send current game state back to the reconnected player
+    const question = QUESTIONS[room.currentQuestionIndex];
+
+    // Build answers list if in voting phase
+    let answers = null;
+    if (room.phase === PHASES.VOTING) {
+      const lies = Array.from(room.currentLies.values());
+      const allAnswers = [...lies, question.truth];
+      answers = shuffleArray(allAnswers);
+    }
+
+    callback({
+      success: true,
+      gameState: {
+        phase: room.phase,
+        question: question ? { id: question.id, text: question.text } : null,
+        questionNumber: room.currentQuestionIndex + 1,
+        totalQuestions: QUESTIONS.length,
+        score: pending.score,
+        hasSubmittedLie: pending.lie !== undefined,
+        hasVoted: pending.vote !== undefined,
+        answers // voting options (only in voting phase)
+      }
+    });
+  });
+
   // Host starts the game
   socket.on('start_game', ({ roomCode }, callback) => {
     const room = rooms.get(roomCode);
@@ -199,7 +282,7 @@ io.on('connection', (socket) => {
     });
 
     // Start 30-second timer for lies
-    startTimer(roomCode, 30, () => {
+    startTimer(roomCode, 45, () => {
       moveToVoting(roomCode);
     });
 
@@ -311,7 +394,7 @@ io.on('connection', (socket) => {
     });
 
     // Start 30-second timer
-    startTimer(roomCode, 30, () => {
+    startTimer(roomCode, 45, () => {
       moveToVoting(roomCode);
     });
 
@@ -335,17 +418,54 @@ io.on('connection', (socket) => {
         }, 5000);
       } else if (room.players.has(socket.id)) {
         const player = room.players.get(socket.id);
+        const score = room.scores.get(socket.id) || 0;
+        const lie = room.currentLies.get(socket.id);
+        const vote = room.currentVotes.get(socket.id);
+
+        // Remove from active players
         room.players.delete(socket.id);
         room.scores.delete(socket.id);
         room.currentLies.delete(socket.id);
         room.currentVotes.delete(socket.id);
 
-        io.to(roomCode).emit('player_left', {
-          players: Array.from(room.players.values()),
-          nickname: player.nickname
-        });
+        // Store in pending for reconnection (only if game is in progress)
+        if (room.phase !== PHASES.LOBBY) {
+          const pendingKey = `${roomCode}:${player.nickname}`;
+          console.log(`Player ${player.nickname} disconnected from room ${roomCode}, starting ${PLAYER_RECONNECT_GRACE_MS/1000}s grace period...`);
 
-        console.log(`Player ${player.nickname} left room ${roomCode}`);
+          const timer = setTimeout(() => {
+            pendingPlayers.delete(pendingKey);
+            console.log(`Player ${player.nickname} grace period expired, permanently removed from room ${roomCode}`);
+
+            // Notify that player is truly gone
+            io.to(roomCode).emit('player_left', {
+              players: Array.from(room.players.values()),
+              nickname: player.nickname
+            });
+          }, PLAYER_RECONNECT_GRACE_MS);
+
+          pendingPlayers.set(pendingKey, {
+            roomCode,
+            nickname: player.nickname,
+            score,
+            lie,
+            vote,
+            timer
+          });
+
+          // Notify others that player is temporarily disconnected (not fully left yet)
+          io.to(roomCode).emit('player_disconnected', {
+            players: Array.from(room.players.values()),
+            nickname: player.nickname
+          });
+        } else {
+          // In lobby, just remove immediately
+          io.to(roomCode).emit('player_left', {
+            players: Array.from(room.players.values()),
+            nickname: player.nickname
+          });
+          console.log(`Player ${player.nickname} left room ${roomCode}`);
+        }
       }
     }
   });

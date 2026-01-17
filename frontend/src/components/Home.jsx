@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { io } from 'socket.io-client';
-import heroImage from '../assets/PHOTO-2025-12-17-21-01-45.jpg';
+import heroImage from '../assets/IMG_5922.jpg';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
@@ -76,12 +76,12 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
         <div className="home-card">
           <img
             src={heroImage}
-            alt="Cristi & Juanqui"
+            alt="Cami & Alex"
             className="hero-image"
           />
-          <h1 className="game-title">Los Ponchitos</h1>
+          <h1 className="game-title">Los Arabes</h1>
           <h2 className="game-subtitle">💍 Bridal Shower</h2>
-          <p className="game-description">Cristi & Juanqui</p>
+          <p className="game-description">Cami & Alex</p>
 
           <div className="button-group">
             <button

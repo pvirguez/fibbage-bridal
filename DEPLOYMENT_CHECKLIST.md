@@ -165,14 +165,14 @@ The game comes with 15 placeholder questions. You MUST customize them:
 2. Open `backend/server.js`
 3. Find line ~18 with the `QUESTIONS` array
 4. Click "Edit" (pencil icon)
-5. Replace each question and truth with real facts about Cristi & Juanqui
+5. Replace each question and truth with real facts about Cami & Alex
 6. Commit changes
 7. Railway will automatically redeploy with new questions
 
 **Example:**
 ```javascript
 const QUESTIONS = [
-  { id: 1, text: "¿Dónde se conocieron Cristi y Juanqui?", truth: "En la universidad" },
+  { id: 1, text: "¿Dónde se conocieron Cami y Alex?", truth: "En la universidad" },
   { id: 2, text: "¿Cuál fue su primera película juntos?", truth: "Avengers" },
   // ... 13 more questions
 ];
