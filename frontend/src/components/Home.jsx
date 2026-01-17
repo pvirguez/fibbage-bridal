@@ -79,7 +79,7 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
             alt="Cami & Alex"
             className="hero-image"
           />
-          <h1 className="game-title">Los Arabes</h1>
+          <h1 className="game-title">Los Cochitos</h1>
           <h2 className="game-subtitle">💍 Bridal Shower</h2>
           <p className="game-description">Cami & Alex</p>
 
