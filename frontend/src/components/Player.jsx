@@ -365,7 +365,7 @@ function Player({ roomCode, nickname, onBack }) {
 
         <div className="game-over-message">
           <h3>Thanks for playing!</h3>
-          <p>💍 Congratulations Cami & Alex! 💍</p>
+          <p>Great game, team.</p>
         </div>
       </div>
     );

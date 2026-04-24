@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { io } from 'socket.io-client';
-import heroImage from '../assets/IMG_5922.jpg';
+import heroImage from '../assets/r2_logo.jpg';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
@@ -76,25 +76,25 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
         <div className="home-card">
           <img
             src={heroImage}
-            alt="Cami & Alex"
+            alt="R2"
             className="hero-image"
           />
-          <h1 className="game-title">Los Cochitos</h1>
-          <h2 className="game-subtitle">💍 Bridal Shower</h2>
-          <p className="game-description">Cami & Alex</p>
+          <h1 className="game-title">Fibbage</h1>
+          <h2 className="game-subtitle">R2 Team Edition</h2>
+          <p className="game-description">Social Hour Trivia</p>
 
           <div className="button-group">
             <button
               className="btn btn-primary btn-large"
               onClick={() => setIsHost(true)}
             >
-              🖥️ Host Game (TV)
+              Host Game (Screen Share)
             </button>
             <button
               className="btn btn-secondary btn-large"
               onClick={() => setIsHost(false)}
             >
-              📱 Join Game (Player)
+              Join Game (Player)
             </button>
           </div>
         </div>
@@ -106,7 +106,7 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
     return (
       <div className="home-container">
         <div className="home-card">
-          <h1 className="game-title">💍 Create Game</h1>
+          <h1 className="game-title">Create Game</h1>
           <p className="instruction-text">Click below to create a new room</p>
 
           {error && <div className="error-message">{error}</div>}
@@ -135,7 +135,7 @@ function Home({ onNavigateToHost, onNavigateToPlayer }) {
   return (
     <div className="home-container">
       <div className="home-card">
-        <h1 className="game-title">💍 Join Game</h1>
+        <h1 className="game-title">Join Game</h1>
 
         <form onSubmit={handleJoinRoom} className="join-form">
           <div className="form-group">

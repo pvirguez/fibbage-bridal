@@ -32,20 +32,23 @@ const pendingPlayers = new Map();
 // Grace period for player reconnection (2 minutes - enough for app switch/tab background/page refresh)
 const PLAYER_RECONNECT_GRACE_MS = 120000;
 
-// Pre-loaded questions (15 questions about the couple)
+// Pre-loaded questions (team bonding — R2 teammate trivia)
+// TODO: replace each "truth" with the real answer before playing.
 const QUESTIONS = [
-  { id: 1, text: "Según Cami, lo peor de un apocalipsis zombie no sería morir, sino no poder", truth: "lavarse los dientes" },
-  { id: 2, text: "Cuando Alex está muy concentrado, termina __________ sin darse cuenta", truth: "pensando en voz alta" },
-  { id: 3, text: "Alex y Cami se cuadraron por primera vez en", truth: "una banca en Unicentro" },
-  { id: 4, text: "Cami sueña con que su primer bebé se disfrace de", truth: "Dobby el Elfo de Harry Potter" },
-  { id: 5, text: "A Alex le gusta tanto el picante que incluso se lo echa a", truth: "los buñuelos" },
-  { id: 6, text: "Cami siempre se queda dormida con __________ y Alex se las quita", truth: "las gafas" },
-  { id: 7, text: "Cami fue selección Bogotá de __________ y jugó su primer campeonato sub-21 cuando tenía solo 12 años.", truth: "softball" },
-  { id: 8, text: "Alex tiene una obsesión con __________ y se ha disfrazado de eso tres veces.", truth: "el Joker" },
-  { id: 9, text: "Algo que Alex y Cami siempre dicen que van a hacer, pero casi nunca cumplen, es", truth: "probar restaurantes nuevos" },
-  { id: 10, text: "Algo que poca gente sabe de Cami en la universidad es que hizo parte del grupo de __________ de su facultad de medicina.", truth: "danza/salsa choque" },
-  { id: 11, text: "Alex se toma tan en serio su rol comercial que en Preki llegó a __________ para convencerlas de comprar.", truth: "modelarle a unas viejitas"},
-  { id: 12, text: "La cosa favorita de Cami es __________, y es exactamente lo que Alex más odia.", truth: "espichar granos" },
+  { id: 1, text: "Pedro can make a surprisingly convincing __________ sound.", truth: "horse" },
+  { id: 2, text: "Dimi speaks __________ languages fluently.", truth: "4" },
+  { id: 3, text: "MJ has exactly __________ tattoos.", truth: "4" },
+  { id: 4, text: "Before R2, MJ ran a side business selling __________.", truth: "gift baskets" },
+  { id: 5, text: "Daniel is secretly pretty good at __________.", truth: "soccer" },
+  { id: 6, text: "Gabi has a weirdly specific skill: she's really good at __________.", truth: "mechanics" },
+  { id: 7, text: "When Paul isn't working at R2, he spends most of his time __________.", truth: "working on his business" },
+  { id: 8, text: "In college, Pedro made some extra money by __________.", truth: "moving furniture" },
+  { id: 9, text: "I college Pedro was part of __________.", truth: "a fraternity" },
+  { id: 10, text: "Pedro nicknamed MJ after Spider-Man's MJ — but before that, her nickname was __________.", truth: "Jimenoide" },
+  { id: 11, text: "At the last offsite, Dimi shared a room with __________.", truth: "Pedro" },
+  { id: 12, text: "Daniel has a neighbor who blasts music at all hours — the song they play on repeat is __________.", truth: "[FILL IN TRUTH]" },
+  { id: 13, text: "Daniel already knew one person at R2 before joining — that person is __________.", truth: "Cata" },
+  { id: 14, text: "Paul lives in __________.", truth: "Argentina" },
 ];
 
 // Game phases
